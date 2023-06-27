@@ -1,0 +1,5 @@
+{
+  "type" : "gradle",
+  "id" : ":helloworld:unspecified",
+  "repository" : ""
+}
