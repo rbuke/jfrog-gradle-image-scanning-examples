@@ -34,16 +34,11 @@ jobs:
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
-          JF_URL: ${{ secrets.JF_URL }}
         run: |
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
           ./gradlew --stop
       - name: Publish to Artifactory
-        env: 
-          # JFrog Platform auth creds
-          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         run: ./gradlew jib
       
       
