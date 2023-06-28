@@ -7,8 +7,8 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def artifactoryUser = project.hasProperty('artifactory_user') ? project.artifactory_user : System.getenv('ARTIFACTORY_USER')
-def artifactoryPassword = project.hasProperty('artifactory_password') ? project.artifactory_password : System.getenv('ARTIFACTORY_KEY')
+def artifactoryUser = System.getenv('ARTIFACTORY_USER')
+def artifactoryPassword = System.getenv('ARTIFACTORY_KEY')
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ jib {
         image = 'gcr.io/distroless/java:11@sha256:5e933733982c5af8524e78fb22b9e0b283f708195187fe44189fcc10a1a8a36b'
     }
     to {
-      image = "robstest12122222.jfrog.io/test-docker-local/my-app"
+      image = "test1234588.jfrog.io/docker-local/my-app4"
       auth {
         username = artifactoryUser
         password = artifactoryPassword
