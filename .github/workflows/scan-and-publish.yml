@@ -28,16 +28,27 @@ jobs:
           # JFrog Platform auth creds
           JF_USER: ${{ secrets.JF_USER }}
           JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-
       
-      - name: Publish to Staging repo
+      - name: Build locally and scan with xray
         env: 
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         run: |
+          // Build image locally and scan with Xray, then publish to Artifactory
           ./gradlew jibDockerBuild --image=test:latest
           jf docker scan test:latest --fixable --watches 'Security_watch_1'
+      
+      - name: Build locally and scan with xray
+        env: 
+          # JFrog Platform auth creds
+          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+        run: |
+            jf rt u test:latest docker-local --build-name=build --build-number=1
+        
+
+
     
       
       
