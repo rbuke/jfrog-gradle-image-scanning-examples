@@ -1,0 +1,28 @@
+Name: Build and Scan
+on:
+  push: 
+    branches: 
+    - main
+    pull request: 
+
+jobs: 
+  Build:
+    name: BuildAndScan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Xray scan
+      - uses: jfrog/setup-jfrog-cli@v3
+        env:
+          # JFrog platform url (for example: https://acme.jfrog.io) 
+          JF_URL: ${{ secrets.JF_URL }}
+
+          # JFrog Platform access token
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+      - run: |
+          ./gradlew jibBuildTar
+
+
+jobs: 
