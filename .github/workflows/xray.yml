@@ -23,6 +23,8 @@ jobs:
           # JFrog platform url (for example: https://acme.jfrog.io) 
           JF_URL: ${{ secrets.JF_URL }}
           # JFrog Platform access token
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+          JF_USER: ${{ secrets.JF_USER }}
       - run: |
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
