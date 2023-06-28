@@ -32,27 +32,19 @@ jobs:
       - name: Scan with Xray
         env: 
           # JFrog Platform auth creds
-          ARTIFACTORY_USER: ${{ secrets.JF_ACCESS_TOKEN }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_USER }}
+          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
           JF_URL: ${{ secrets.JF_URL }}
-          # JFrog Platform auth cred
-          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-          JF_USER: ${{ secrets.JF_USER }}
         run: |
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
           ./gradlew --stop
-      - name: Scan with Xray
+      - name: Publish to Artifactory
         env: 
           # JFrog Platform auth creds
-          ARTIFACTORY_USER: ${{ secrets.JF_ACCESS_TOKEN }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_USER }}
-          JF_URL: ${{ secrets.JF_URL }}
-          # JFrog Platform auth cred
-          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-          JF_USER: ${{ secrets.JF_USER }}
-        run: |
-          ./gradlew jib
+          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+        run: ./gradlew jib
       
       
       
