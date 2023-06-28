@@ -23,7 +23,7 @@ jib {
         image = 'gcr.io/distroless/java:11@sha256:5e933733982c5af8524e78fb22b9e0b283f708195187fe44189fcc10a1a8a36b'
     }
     to {
-      image = "test1234588.jfrog.io/docker-local-staging/my-app5"
+      image = "test1234588.jfrog.io/docker-local-staging/my-app6"
       auth {
         username = artifactoryUser
         password = artifactoryPassword
