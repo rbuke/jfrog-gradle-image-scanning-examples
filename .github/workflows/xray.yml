@@ -26,6 +26,7 @@ jobs:
           JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
           JF_USER: ${{ secrets.JF_USER }}
       - run: |
+          echo $JF_USER
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
           ./gradlew jib
