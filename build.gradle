@@ -10,9 +10,6 @@ targetCompatibility = 1.8
 def artifactoryUser = System.getenv('ARTIFACTORY_USER')
 def artifactoryPassword = System.getenv('ARTIFACTORY_KEY')
 
-println "artifactoryUser: $artifactoryUser"
-println "artifactoryPassword: $artifactoryPassword"
-
 repositories {
     mavenCentral()
 }
