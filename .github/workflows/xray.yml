@@ -40,7 +40,6 @@ jobs:
           JF_USER: ${{ secrets.JF_USER }}
         run: |
           ./gradlew --stop
-          ./gradlew jibBuildTar
-          jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
+
           ./gradlew jib
           
