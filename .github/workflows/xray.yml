@@ -25,8 +25,13 @@ jobs:
           # JFrog Platform auth creds
           JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
           JF_USER: ${{ secrets.JF_USER }}
-      - run: |
-          echo $JF_USER
+      - name: Publish and Scan with Xray
+        env: 
+          JF_URL: ${{ secrets.JF_URL }}
+          # JFrog Platform auth creds
+          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
+          JF_USER: ${{ secrets.JF_USER }}
+        run: |
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
           ./gradlew jib
