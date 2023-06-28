@@ -7,8 +7,8 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def artifactoryUser = project.hasProperty('artifactory_user') ? project.artifactory_user : System.getenv('ARTIFACTORY_USER')
-def artifactoryPassword = project.hasProperty('artifactory_password') ? project.artifactory_password : System.getenv('ARTIFACTORY_KEY')
+def artifactoryUser = project.hasProperty('artifactory_user') ? project.artifactory_user : System.getenv('JF_USER')
+def artifactoryPassword = project.hasProperty('artifactory_password') ? project.artifactory_password : System.getenv('JF_ACCESS_TOKEN')
 
 repositories {
     mavenCentral()
