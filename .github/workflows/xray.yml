@@ -32,9 +32,10 @@ jobs:
       - name: Publish and Scan with Xray
         env: 
           # JFrog Platform auth creds
-          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-          JF_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_USER: ${{ secrets.JF_ACCESS_TOKEN }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_USER }}
         run: |
+          ./gradlew --stop
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
           ./gradlew jib
