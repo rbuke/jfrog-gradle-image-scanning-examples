@@ -1,4 +1,5 @@
-Name: Build and Scan
+Name: Publish and Scan with Xray
+
 on:
   push: 
     branches: 
@@ -7,9 +8,9 @@ on:
 
 jobs: 
   Build:
-    name: BuildAndScan
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -18,11 +19,11 @@ jobs:
         env:
           # JFrog platform url (for example: https://acme.jfrog.io) 
           JF_URL: ${{ secrets.JF_URL }}
-
           # JFrog Platform access token
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+      - name: Upload and scan
       - run: |
           ./gradlew jibBuildTar
-
-
-jobs: 
+          jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
+          ./gradlew jib
+          
