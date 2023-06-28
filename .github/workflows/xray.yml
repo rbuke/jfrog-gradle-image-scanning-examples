@@ -8,11 +8,12 @@ on:
 
 jobs: 
   Build:
+    name: Publish and Scan with Xray
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Xray scan
-      - uses: jfrog/setup-jfrog-cli@v3
+      - name: Xray
+        uses: jfrog/setup-jfrog-cli@v3
         env:
           # JFrog platform url (for example: https://acme.jfrog.io) 
           JF_URL: ${{ secrets.JF_URL }}
