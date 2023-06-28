@@ -34,6 +34,10 @@ jobs:
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_ACCESS_TOKEN }}
           ARTIFACTORY_KEY: ${{ secrets.JF_USER }}
+          JF_URL: ${{ secrets.JF_URL }}
+          # JFrog Platform auth creds
+          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
+          JF_USER: ${{ secrets.JF_USER }}
         run: |
           ./gradlew --stop
           ./gradlew jibBuildTar
