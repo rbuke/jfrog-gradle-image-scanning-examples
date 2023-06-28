@@ -39,13 +39,14 @@ jobs:
           ./gradlew jibDockerBuild --image=test:latest
           jf docker scan test:latest --fixable --watches 'Security_watch_1'
       
-      - name: Build locally and scan with xray
+      - name: Publish to Artifactory
         env: 
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         run: |
-            jf rt u test:latest docker-local --build-name=build --build-number=1
+          docker tag test:latest test1234588.jfrog.io/docker-local/test
+          jf docker push test1234588.jfrog.io/docker-local/test    
         
 
 
