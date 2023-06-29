@@ -44,10 +44,11 @@ jobs:
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+          IMAGE_TAG: test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
           #To do: add url secret
         run: |
-          docker tag test:latest test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
-          jf docker push test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
+          docker tag test:latest $IMAGE_TAG
+          jf docker push $IMAGE_TAG
 
       - name: Publish Build info With JFrog CLI
         env:
