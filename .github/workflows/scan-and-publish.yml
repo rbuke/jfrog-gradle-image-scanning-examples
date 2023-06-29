@@ -1,4 +1,4 @@
-name: Scan with Xray and Publish to Artifactory
+name: Scan jib image with Xray and Publish to Artifactory
 
 on:
   push: 
