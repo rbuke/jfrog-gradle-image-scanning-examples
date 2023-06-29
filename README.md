@@ -5,6 +5,8 @@ Each workflow builds the image using the jib gradle plugin, scans the image usin
 
 </br>
 
+Java code taken from <a href="https://github.com/GoogleContainerTools/jib/tree/master/examples/helloworld"> jib official examples </a>
+
 <b>Workflows:</b>
 
 
