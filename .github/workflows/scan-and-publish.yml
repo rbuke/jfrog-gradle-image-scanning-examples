@@ -1,0 +1,71 @@
+name: Scan with Xray and Publish to Artifactory
+
+on:
+  push: 
+    branches: 
+    - main
+  pull_request: 
+
+jobs: 
+  Build:
+    name: Publish and Scan with Xray
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+    
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      
+      - name: setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v3
+        env:
+          # JFrog platform url (for example: https://acme.jfrog.io) 
+          JF_URL: ${{ secrets.JF_URL }}
+          # JFrog Platform auth creds
+          JF_USER: ${{ secrets.JF_USER }}
+          JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
+        
+      - name: Build image locally
+        env:
+          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+        run: ./gradlew jibDockerBuild --image=test:latest
+      
+      - name: Scan with Xray
+        run: jf docker scan test:latest --fixable --watches 'Security_watch_1'
+
+      - name: Publish to Artifactory
+        env: 
+          # JFrog Platform auth creds
+          IMAGE_TAG: test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
+          #To do: add url secret
+        run: |
+          docker tag test:latest $IMAGE_TAG
+          jf docker push $IMAGE_TAG
+
+      - name: Publish Build info With JFrog CLI
+        env:
+          # Generated and maintained by GitHub
+          JFROG_CLI_BUILD_NAME: jfrog-docker-build-example
+          # JFrog organization secret
+          JFROG_CLI_BUILD_NUMBER : ${{ github.run_number }}
+        run: |
+          # Export the build name and build nuber
+          # Collect environment variables for the build
+          jf rt build-collect-env
+          # Collect VCS details from git and add them to the build
+          jf rt build-add-git
+          # Publish build info
+          jf rt build-publish
+          
+
+
+    
+      
+      
+      
+          

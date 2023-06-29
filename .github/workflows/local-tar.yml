@@ -1,4 +1,4 @@
-name: Publish and Scan with Xray
+name: Scan local Tar with Xray and Publish to Artifactory
 
 on:
   push: 
@@ -37,6 +37,7 @@ jobs:
         run: |
           ./gradlew jibBuildTar
           jf scan build/jib-image.tar --fixable --watches 'Security_watch_1'
+          
       - name: Publish to Artifactory
         env: 
           # JFrog Platform auth creds
