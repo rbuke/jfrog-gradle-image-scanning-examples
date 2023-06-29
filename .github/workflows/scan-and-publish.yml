@@ -34,8 +34,8 @@ jobs:
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+          #Build image locally and scan with Xray, then publish to Artifactory
         run: |
-          // Build image locally and scan with Xray, then publish to Artifactory
           ./gradlew jibDockerBuild --image=test:latest
           jf docker scan test:latest --fixable --watches 'Security_watch_1'
       
