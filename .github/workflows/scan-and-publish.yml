@@ -44,9 +44,10 @@ jobs:
           # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
+          #To do: add url secret
         run: |
-          docker tag test:latest test1234588.jfrog.io/docker-local/test
-          jf docker push test1234588.jfrog.io/docker-local/workflowtwo    
+          docker tag test:latest test1234588.jfrog.io/docker-local/workflowtwo
+          jf docker push test1234588.jfrog.io/docker-local/workflowtwo
         
 
 
