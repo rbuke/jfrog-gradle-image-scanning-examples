@@ -46,7 +46,7 @@ jobs:
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         run: |
           docker tag test:latest test1234588.jfrog.io/docker-local/test
-          jf docker push test1234588.jfrog.io/docker-local/w2:latest    
+          jf docker push test1234588.jfrog.io/docker-local/W2    
         
 
 
