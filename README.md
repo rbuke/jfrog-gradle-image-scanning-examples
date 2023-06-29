@@ -1,10 +1,11 @@
-<h2> JFrog Xray scanning workflows for gradle projects that use the Jib plugin to create and publish images. </h2>
+<h3> JFrog Xray scanning workflows for gradle projects that use the Jib plugin to create and publish images. </h3>
+</br>
 
+Each workflow builds the image using the jib gradle plugin, scans the image using the JFrog CLI, and then publishes to Artifactory. 
 
-<h3> Each workflow builds the image using the jib gradle plugin, scans the image with the JFrog CLI, and then publishes to Artifactory </h3>
+</br>
 
-
-<h3>Workflows:</h3>
+<b>Workflows:</b>
 
 
 <b> scan-and-publish  </b>  
