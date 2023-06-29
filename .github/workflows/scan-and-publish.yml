@@ -28,10 +28,11 @@ jobs:
           # JFrog Platform auth creds
           JF_USER: ${{ secrets.JF_USER }}
           JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         
       - name: Build image locally
+        env:
+          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
+          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
         run: ./gradlew jibDockerBuild --image=test:latest
       
       - name: Scan with Xray
