@@ -28,31 +28,18 @@ jobs:
           # JFrog Platform auth creds
           JF_USER: ${{ secrets.JF_USER }}
           JF_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
-      
-      - name: Build locally and scan with xray
-        env: 
-          # JFrog Platform auth creds
           ARTIFACTORY_USER: ${{ secrets.JF_USER }}
           ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
-          #Build image locally and scan with Xray, then publish to Artifactory
-        run: |
-          ./gradlew jibDockerBuild --image=test:latest
+        
+      - name: Build image locally
+        run: ./gradlew jibDockerBuild --image=test:latest
       
       - name: Scan with Xray
-        env: 
-          # JFrog Platform auth creds
-          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
-          IMAGE_TAG: test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
-          #To do: add url secret
-        run: |
-          jf docker scan test:latest --fixable --watches 'Security_watch_1'
+        run: jf docker scan test:latest --fixable --watches 'Security_watch_1'
 
       - name: Publish to Artifactory
         env: 
           # JFrog Platform auth creds
-          ARTIFACTORY_USER: ${{ secrets.JF_USER }}
-          ARTIFACTORY_KEY: ${{ secrets.JF_ACCESS_TOKEN}}
           IMAGE_TAG: test1234588.jfrog.io/docker-local/workflowtwo:${{ github.run_number }}
           #To do: add url secret
         run: |
